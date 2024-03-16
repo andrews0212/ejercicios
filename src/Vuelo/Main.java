@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {    
         Vuelo v1,v2,v3,v4,v5;
-        v1 = new Vuelo("Madrid, 12.37, 155, 100, IB1123, 22, 11, 2007");
+        v1 = new Vuelo("Madrid, 12.37, 155, 155, IB1123, 24, 11, 2007");
         v2 = new Vuelo("Madrid, 22.37, 155, 154, IB2365, 23, 11, 2007");
         v3 = new Vuelo("Barcelona, 19.56, 200, 150, VLG256, 22, 11, 2007");
         v4 = new Vuelo("Barcelona, 39.56, 200, 150, UA7810, 24, 11, 2007");
@@ -17,6 +17,8 @@ public class Main {
         a.añadirVuelo(v3);
         a.añadirVuelo(v4);
         a.añadirVuelo(v5);
+
+        System.out.println(a.PrimerVueloConPlaza("Madrid"));
         
     }
     

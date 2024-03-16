@@ -109,6 +109,17 @@ public class Vuelo implements Comparable<Vuelo> {
         }
         return this.getCodigo().compareTo(o.getCodigo());
     }
+
+
+
+
+    @Override
+    public String toString() {
+        return "Vuelo [destino=" + destino + ", precio=" + precio + ", numeroDePlaza=" + numeroDePlaza
+                + ", numeroDePasajero=" + numeroDePasajero + ", codigo=" + codigo + ", Fecha=" + Fecha + "]";
+    }
+
+    
     
 
     

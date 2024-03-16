@@ -3,7 +3,9 @@ package Vuelo;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 
@@ -63,9 +65,38 @@ public class Aeropuerto {
         return recaudacion;
     }
 
+
+
     public Vuelo VueloMasBarato(String destino){
     return vuelos.stream().filter(p -> p.getDestino().equalsIgnoreCase(destino)).min(new ComparadorPorPrecio()).get();
     }
+
+
+    public Vuelo PrimerVueloConPlaza(String destino){
+        return vuelos.stream().filter(p -> p.getDestino().equalsIgnoreCase(destino) && p.getNumeroDePasajero() < p.getNumeroDePlaza()).min(new ComparatorPorFecha()).get();
+    }
+
+    // numero de plaza == 100%
+    // numero de pasajero = ?
+    //(numero / nummeroPasajero) * 100
+
+    public double porcentajePlaza(LocalDate fecha){
+        double porcentaje;
+        porcentaje = 0;
+        for (Vuelo vuelo : vuelos) {
+            if (vuelo.getFecha().equals(fecha)){
+                if(porcentaje <= (vuelo.getNumeroDePlaza() / vuelo.getNumeroDePasajero()) * 100){
+                    porcentaje = (vuelo.getNumeroDePlaza() / vuelo.getNumeroDePasajero()) * 100;
+                }
+            }
+        }
+        return porcentaje;
+    }
+
+    
+
+
+
     
 
 }

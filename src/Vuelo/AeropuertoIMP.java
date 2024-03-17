@@ -22,8 +22,19 @@ public class AeropuertoIMP implements Aeropuerto{
     //     this.nombre = nombre;
     //     this.vuelos = new HashSet<VueloIMP>();
     // }
+    public AeropuertoIMP() throws VueloException{
 
-               
+        Scanner teclado = new Scanner(System.in);
+        this.nombre = teclado.nextLine();
+        this.vuelos = new HashSet<VueloIMP>();
+
+        String linea;
+            while (teclado.hasNextLine()){
+                if(teclado.nextLine().isEmpty())break;
+                vuelos.add(new VueloIMP(teclado.nextLine()));
+                
+            }
+            }
     public AeropuertoIMP(String nombre) throws VueloException, FileNotFoundException {
         this.nombre = nombre;
         this.vuelos = new HashSet<VueloIMP>();

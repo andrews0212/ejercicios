@@ -26,12 +26,12 @@ public class Main {
         
     // }
     try{
-        AeropuertoIMP a = new AeropuertoIMP("barajas");
+        AeropuertoIMP a = new AeropuertoIMP();
         a.mostrarVuelos();
     } catch (Exception e){
         System.out.println(e);
     }
-   
+
 }
     
 }

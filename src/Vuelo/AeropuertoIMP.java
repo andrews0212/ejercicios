@@ -1,9 +1,14 @@
 package Vuelo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Scanner;
 import java.util.Set;
 
 
@@ -13,14 +18,31 @@ public class AeropuertoIMP implements Aeropuerto{
     private Set<VueloIMP> vuelos;
 
 
-    public AeropuertoIMP(String nombre) {
+    // public AeropuertoIMP(String nombre) {
+    //     this.nombre = nombre;
+    //     this.vuelos = new HashSet<VueloIMP>();
+    // }
+
+               
+    public AeropuertoIMP(String nombre) throws VueloException, FileNotFoundException {
         this.nombre = nombre;
         this.vuelos = new HashSet<VueloIMP>();
-    }
+        File fichero = new File("src\\Vuelo\\vuelos.txt");
+        Scanner teclado = new Scanner(fichero);
+        String linea;
+            while (teclado.hasNextLine()){
+                linea = teclado.nextLine();
+                vuelos.add(new VueloIMP(linea));
+                
+            }
+            }
+    
+
     
     public void añadirVuelo(VueloIMP vuelo){
         vuelos.add(vuelo);
     }
+    
     public void quitarVuelo(VueloIMP vuelo){
         for (VueloIMP v : vuelos) {
             if (v.getCodigo().equals(vuelo.getCodigo())){

@@ -5,20 +5,18 @@ import java.util.Scanner;
 import java.util.Objects;
 
 public class VueloIMP implements Comparable<VueloIMP>, Vuelo {
-
     private String destino;
     private Double precio;
     private int numeroDePlaza;
     private int numeroDePasajero;
     private String codigo;
     private LocalDate Fecha;
-
+    
     public VueloIMP(String cadena) throws VueloException{
+        
         int dia,mes,anio;
         cadena = cadena.replaceAll(" ", "");
         String[] valores = valores = cadena.split(",");
-
-        
         if (Integer.parseInt(valores[7]) < 2000){
             throw new PosteriorAnioException();
         }else{
@@ -27,8 +25,6 @@ public class VueloIMP implements Comparable<VueloIMP>, Vuelo {
             anio = Integer.parseInt(valores[7]);
             this.Fecha = LocalDate.of(anio, mes, dia);
         }
-        
-
         this.destino = valores[0];
         this.setPrecio(Double.parseDouble(valores[1]));
 
@@ -37,17 +33,16 @@ public class VueloIMP implements Comparable<VueloIMP>, Vuelo {
         } else {
             this.numeroDePlaza = Integer.parseInt(valores[2]);
         }
+
         this.setNumeroPasajero(Integer.parseInt(valores[3]));
         this.codigo = valores[4];
     }
 
     
-
-
     private void setNumeroPasajero(int numero) throws NegativoException, SobrepasoPlazaException {
         if (numero < 0){
             throw new NegativoException();
-        }else if (this.numeroDePlaza > numero){
+        }else if (numero > this.numeroDePlaza){
             throw new SobrepasoPlazaException();
         } else {
             this.numeroDePasajero = numero;
@@ -104,22 +99,13 @@ public class VueloIMP implements Comparable<VueloIMP>, Vuelo {
         
         VueloIMP other = (VueloIMP) obj;
         
-        if (destino == null) {
-            if (other.destino != null)
-                return false;
-        } else if (!destino.equals(other.destino))
-            return false;
-        if (codigo == null) {
-            if (other.codigo != null)
-                return false;
-        } else if (!codigo.equals(other.codigo))
-            return false;
-        if (Fecha == null) {
-            if (other.Fecha != null)
-                return false;
-        } else if (!Fecha.equals(other.Fecha))
-            return false;
-        return true;
+        if (!this.getDestino().equals(other.getDestino())){
+        return false;
+        } else if (!this.getCodigo().equals(other.getCodigo())){
+        return false;
+        }else{
+            return true;
+        }
     }
 
     @Override

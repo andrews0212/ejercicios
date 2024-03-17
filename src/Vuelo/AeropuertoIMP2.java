@@ -2,43 +2,44 @@ package Vuelo;
 
 import java.time.LocalDate;
 import java.util.Collection;
+
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-
-public class AeropuertoIMP implements Aeropuerto{
+public class AeropuertoIMP2 implements Aeropuerto{
 
     private String nombre;
-    private Set<VueloIMP> vuelos;
+    private SortedSet<VueloIMP> vuelos;
 
-
-    public AeropuertoIMP(String nombre) {
+    public AeropuertoIMP2(String nombre) {
         this.nombre = nombre;
-        this.vuelos = new HashSet<VueloIMP>();
+        this.vuelos = new TreeSet<VueloIMP>(new ComparadorDestino());
     }
-    
+
     public void añadirVuelo(VueloIMP vuelo){
         vuelos.add(vuelo);
+    
     }
+    public void ordenar(){
+        
+    }
+
     public void quitarVuelo(VueloIMP vuelo){
         for (VueloIMP v : vuelos) {
             if (v.getCodigo().equals(vuelo.getCodigo())){
                 vuelos.remove(vuelo);
             }
-
         }
     }
+
     public Set<VueloIMP> buscaVuelosPorDias(LocalDate fecha){
-        
-        Set<VueloIMP> vuelos = new HashSet<VueloIMP>();
-
+    Set<VueloIMP> vuelos = new HashSet<VueloIMP>();
         for (VueloIMP vuelo : this.vuelos) {
-
             if (vuelo.getFecha().equals(fecha)){
                 vuelos.add(vuelo);
             }
-
         }
         return vuelos;
     }
@@ -62,14 +63,9 @@ public class AeropuertoIMP implements Aeropuerto{
         }
         return recaudacion;
     }
-
-
-
     public VueloIMP VueloMasBarato(String destino){
-    return vuelos.stream().filter(p -> p.getDestino().equalsIgnoreCase(destino)).min(new ComparadorPorPrecio()).get();
+        return vuelos.stream().filter(p -> p.getDestino().equalsIgnoreCase(destino)).min(new ComparadorPorPrecio()).get();
     }
-
-
     public VueloIMP PrimerVueloConPlaza(String destino){
         return vuelos.stream().filter(p -> p.getDestino().equalsIgnoreCase(destino) && p.getNumeroDePasajero() < p.getNumeroDePlaza()).min(new ComparatorPorFecha()).get();
     }
@@ -99,11 +95,11 @@ public class AeropuertoIMP implements Aeropuerto{
             }
         }
     }
-
     void mostrarVuelos(){
         for (VueloIMP v : vuelos) {
             System.out.println(v);
         }
-    }
+    } 
 
+    
 }

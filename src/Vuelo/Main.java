@@ -26,7 +26,7 @@ public class Main {
         
     // }
     try{
-        AeropuertoIMP a = new AeropuertoIMP();
+        AeropuertoIMP a = new AeropuertoIMP("baraja");
         a.mostrarVuelos();
     } catch (Exception e){
         System.out.println(e);

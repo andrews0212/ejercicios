@@ -1,9 +1,12 @@
 package Vuelo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.Collection;
 
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -13,10 +16,19 @@ public class AeropuertoIMP2 implements Aeropuerto{
     private String nombre;
     private SortedSet<VueloIMP> vuelos;
 
-    public AeropuertoIMP2(String nombre) {
-        this.nombre = nombre;
-        this.vuelos = new TreeSet<VueloIMP>(new ComparadorDestino());
-    }
+    public AeropuertoIMP2(String nombre) throws FileNotFoundException, VueloException {
+         this.nombre = nombre;
+        this.vuelos = new TreeSet<>();
+        File fichero = new File("src\\Vuelo\\vuelos.txt");
+        Scanner teclado = new Scanner(fichero);
+        String linea;
+            while (teclado.hasNextLine()){
+                linea = teclado.nextLine();
+                vuelos.add(new VueloIMP(linea));
+                
+            }
+            }
+        
 
     public void añadirVuelo(VueloIMP vuelo){
         vuelos.add(vuelo);

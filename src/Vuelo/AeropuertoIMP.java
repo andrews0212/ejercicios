@@ -96,7 +96,13 @@ public class AeropuertoIMP implements Aeropuerto{
         return recaudacion;
     }
 
-
+    /*
+     * 
+     * la otra forma de hacerlos es creando una collection que almacene  todos los del mismo destino
+     * y luego lo ordenas con el collections.min(new comparator()).
+     * 
+     * 
+     */
 
     public VueloIMP VueloMasBarato(String destino){
     return vuelos.stream().filter(p -> p.getDestino().equalsIgnoreCase(destino)).min(new ComparadorPorPrecio()).get();
@@ -127,7 +133,7 @@ public class AeropuertoIMP implements Aeropuerto{
     public void incrementarPrecio(double porcentaje, LocalDate fecha)
     {
         for (VueloIMP vuelo : vuelos) {
-            if (vuelo.getFecha() == fecha){
+            if (vuelo.getFecha().compareTo(fecha) > 0){
                 vuelo.setPrecio( vuelo.getPrecio() + (vuelo.getPrecio() * porcentaje / 100));
             }
         }

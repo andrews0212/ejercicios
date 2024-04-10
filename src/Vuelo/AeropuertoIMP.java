@@ -2,14 +2,24 @@ package Vuelo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+import centralitaLLamadas.Local;
 
 
 public class AeropuertoIMP implements Aeropuerto{
@@ -35,18 +45,57 @@ public class AeropuertoIMP implements Aeropuerto{
                 
             }
             }
-    public AeropuertoIMP(String nombre) throws VueloException, FileNotFoundException {
+
+    public void graba(String nombre) throws FileNotFoundException{
+        File fichero = new File(nombre+".html");
+        PrintWriter printWriter = new PrintWriter(fichero);
+        // CABECERA
+        printWriter.println("<html>");
+       printWriter.println("<body>");
+       printWriter.println("<table>");
+       printWriter.println("<tr>");
+       printWriter.println("<th>Codigo</th>");
+       printWriter.println("<th>Destino</th>");
+       printWriter.println("<th>Fecha</th>");
+        for(VueloIMP vuelo : vuelos){
+            printWriter.println("<tr>");
+            printWriter.printf("<td>%s</td> <td>%s</td> <td>%s</td>", vuelo.getCodigo(), vuelo.getDestino(), vuelo.getFecha());
+            printWriter.println("</tr>");
+        }
+        printWriter.println("</table>");
+        printWriter.println("</body>");
+        printWriter.println("</html>");
+        printWriter.close();
+        
+    }
+
+
+
+    // public AeropuertoIMP(String nombre) throws VueloException, FileNotFoundException {
+    //     this.nombre = nombre;
+    //     this.vuelos = new HashSet<VueloIMP>();
+    //     File fichero = new File("src\\Vuelo\\vuelos.txt");
+    //     Scanner teclado = new Scanner(fichero);
+    //     String linea;
+    //         while (teclado.hasNextLine()){
+    //             linea = teclado.nextLine();
+    //             vuelos.add(new VueloIMP(linea));
+                
+    //         }
+    //         }
+
+
+    public AeropuertoIMP(String nombre) throws VueloException{
         this.nombre = nombre;
         this.vuelos = new HashSet<VueloIMP>();
-        File fichero = new File("src\\Vuelo\\vuelos.txt");
-        Scanner teclado = new Scanner(fichero);
-        String linea;
-            while (teclado.hasNextLine()){
-                linea = teclado.nextLine();
-                vuelos.add(new VueloIMP(linea));
-                
-            }
-            }
+        Scanner sc = new Scanner(System.in);
+        String cadena;
+       
+        while ( !(cadena = sc.nextLine()).isBlank()) {
+            vuelos.add(new VueloIMP(cadena));
+        }
+
+    }
     
 
     
@@ -62,6 +111,83 @@ public class AeropuertoIMP implements Aeropuerto{
 
         }
     }
+
+    // public void cuentaVueloDia(){
+    //     ArrayList<LocalDate> fechas = new ArrayList<LocalDate>();
+    //     int[] contador;
+    //     for (VueloIMP v : vuelos){
+    //        if (fechas.contains(v.getFecha())){
+            
+    //        }else {
+    //         fechas.add(v.getFecha());
+    //        }
+           
+    //     }
+    //     contador = new int[fechas.size()];
+
+    //     for (VueloIMP v : vuelos){
+    //         if (fechas.contains(v.getFecha())){
+    //             for(int i = 0; i < fechas.size(); i++){
+    //                 if (fechas.get(i).equals(v.getFecha()))
+    //                 contador[i] = contador[i] + 1;
+    //             }
+                
+
+    //         }
+    //     }
+        
+
+    //     for (int i = 0; i < fechas.size(); i++) {
+    //         System.out.println(fechas.get(i) + " : " + contador[i]);
+    //     }
+
+    //     }
+
+
+    /* */
+    public Map<LocalDate, Integer> cuentaVueloDia(){
+        Map<LocalDate, Integer> map = new HashMap<LocalDate, Integer>();
+        for (VueloIMP vueloIMP : vuelos) {
+            if (!(map.containsKey(vueloIMP.getFecha()))){
+                map.put(vueloIMP.getFecha(), 1);
+            }else{
+                map.put(vueloIMP.getFecha(), map.get(vueloIMP.getFecha()) +1);
+            }
+        }
+        return map;
+
+    }
+    public LocalDate dameFechaMasVuelo(){
+        Map<LocalDate, Integer> map = cuentaVueloDia();
+        LocalDate fecha;
+        Integer max;
+        fecha = null;
+        max = 0;
+        for (Entry<LocalDate, Integer> mp : map.entrySet()) {
+            if (max < mp.getValue()){
+            max = mp.getValue();
+            fecha = mp.getKey();
+            }
+            
+        }
+        return fecha;
+    }
+    public LocalDate dameFechaMenosVuelo(){
+        Map<LocalDate, Integer> map = cuentaVueloDia();
+        LocalDate fecha;
+        Integer min;
+        fecha = null;
+        min = -1;
+        for (Entry<LocalDate, Integer> mp : map.entrySet()) {
+            if (min > mp.getValue() || min == -1){
+            min = mp.getValue();
+            fecha = mp.getKey();
+            }
+            
+        }
+        return fecha;
+    }
+      
     public Set<VueloIMP> buscaVuelosPorDias(LocalDate fecha){
         
         Set<VueloIMP> vuelos = new HashSet<VueloIMP>();
@@ -144,5 +270,15 @@ public class AeropuertoIMP implements Aeropuerto{
             System.out.println(v);
         }
     }
+
+    public Set<VueloIMP> getVuelos(){
+        return this.vuelos;
+    }
+
+    @Override
+    public String toString() {
+        return "AeropuertoIMP [nombre=" + nombre + ", vuelos=" + vuelos + "]";
+    }
+    
 
 }

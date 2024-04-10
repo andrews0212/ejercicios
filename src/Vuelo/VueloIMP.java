@@ -16,7 +16,7 @@ public class VueloIMP implements Comparable<VueloIMP>, Vuelo {
         
         int dia,mes,anio;
         cadena = cadena.replaceAll(" ", "");
-        String[] valores = valores = cadena.split(",");
+        String[] valores = cadena.split(",");
         if (Integer.parseInt(valores[7]) < 2000){
             throw new PosteriorAnioException();
         }else{
@@ -37,6 +37,8 @@ public class VueloIMP implements Comparable<VueloIMP>, Vuelo {
         this.setNumeroPasajero(Integer.parseInt(valores[3]));
         this.codigo = valores[4];
     }
+
+
 
     
     private void setNumeroPasajero(int numero) throws NegativoException, SobrepasoPlazaException {

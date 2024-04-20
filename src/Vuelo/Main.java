@@ -12,8 +12,8 @@ public class Main {
     //         v3 = new VueloIMP("Barcelona, 19.56, 200, 150, VLG256, 22, 11, 2007");
     //         v4 = new VueloIMP("Barcelona, 39.56, 200, 150, UA7810, 24, 11, 2007");
     //         v5 = new VueloIMP("Paris, 70.0, 75, 70, EAS348, 24, 11, 2007");
-            AeropuertoIMP a = new AeropuertoIMP("barajas");
-            System.out.println(a);
+            // AeropuertoIMP a = new AeropuertoIMP("barajas");
+            // System.out.println(a);
     //         a.añadirVuelo(v1);
     //         a.añadirVuelo(v2);
     //         a.añadirVuelo(v3);
@@ -29,13 +29,14 @@ public class Main {
 
 
     
-    // try{
-    //     AeropuertoImpMapClase a = new AeropuertoImpMapClase("baraja");
-    //     a.getDiaMasPasajeros();
+     try{
+     AeropuertoImpMapClase a = new AeropuertoImpMapClase("baraja");
+        System.out.println(a.getDiaMasPasajeros());
+        
 
-    // } catch (Exception e){
-    //     System.out.println(e);
-    // }
+    } catch (Exception e){
+        System.out.println(e);
+    }
 
 }
 

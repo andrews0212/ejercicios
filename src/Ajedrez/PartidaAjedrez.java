@@ -10,11 +10,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+
+/**
+ * @author:Andrews Dos Ramos
+ * @version: 1
+ */
+
 public class PartidaAjedrez {
 
     static Map<String, String> partida = new HashMap<>();
 
-
+    
+    /** 
+     * metodo que te devuelve un map con el ficha  y su valor
+     * @return Map<Character, Integer>
+     */
     public static Map<Character, Integer> Puntuacion(){
         Map<Character, Integer> valores = new HashMap<>();
         valores.put('D', 9);
@@ -27,6 +37,17 @@ public class PartidaAjedrez {
         return valores;
     }
 
+    
+    /** 
+     *
+     * Devuelve un map con el valor que tienen las fichas blancas y negras
+     * 
+     * @return Map<Character,Integer>
+     * 
+     * 
+     * 
+     */
+    
     public static Map<Character, Integer> valorPiezas(){
 
         Map<String, String> fichas = new HashMap<>();
@@ -38,6 +59,15 @@ public class PartidaAjedrez {
             }
             return valor;
     }
+
+    
+    /** 
+     * @throws FileNotFoundException
+     */
+    /* 
+     * lee el fichero ajedres.txt y almacena las fichas de un MAP<Posicion, FICHA>
+     * 
+    */
 
     public static void entrada() throws FileNotFoundException{
         char[] posicionLetra ={'a','b','c','d','e','f','g','h'};
@@ -64,6 +94,13 @@ public class PartidaAjedrez {
        
     }
 
+    /*
+     * 
+     * Muestra la posicion de las fichas del tablero
+     * 
+     * 
+     */
+
     public static void mostrarMapPartida(){
         for (Map.Entry mp : partida.entrySet()) {
             System.out.println(mp.getKey() + " --> "+ mp.getValue());
@@ -82,7 +119,7 @@ public class PartidaAjedrez {
     public static void main(String[] args) throws FileNotFoundException {
 
         entrada();
-        mostrarMapPartida();
+      //  mostrarMapPartida();
         valorPiezas();
         mostrarMapValores();
         

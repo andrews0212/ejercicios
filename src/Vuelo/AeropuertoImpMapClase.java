@@ -32,29 +32,60 @@ vuelos programados para ese dia. */
         return map;
         }
 
-        public SortedMap<LocalDate, Integer> getPasajerosXDia(){
-            SortedMap<LocalDate, Integer> map = new TreeMap();
-             for(Vuelo vuelo: getVuelos()) {
-                    map.put(vuelo.getFecha(), map.getOrDefault(vuelo.getFecha(), 0) + 1);
+        // public SortedMap<LocalDate, Integer> getPasajerosXDia(){
+        //     SortedMap<LocalDate, Integer> map = new TreeMap();
+        //      for(Vuelo vuelo: getVuelos()) {
+        //             map.put(vuelo.getFecha(), map.getOrDefault(vuelo.getFecha(), 0) + 1);
                 
-             }
+        //      }
+        //     return map;
+        // }
+        public SortedMap<LocalDate, Integer> getPasajerosXDia(){
+            SortedMap<LocalDate, Integer> map = new TreeMap<>();
+            
+            for(Vuelo v: getVuelos()) {
+                LocalDate fecha = v.getFecha();
+                if(!map.containsKey(fecha)) {
+                    map.put(fecha, v.getNumeroDePasajero());
+                }else {
+                    map.put(fecha, map.getOrDefault(fecha, 0) + v.getNumeroDePasajero());
+                }  
+            }
             return map;
+                    
         }
 
-        public void getDiaMasPasajeros(){
+        // public Map.Entry<Integer, List<LocalDate>> getDiaMasPasajeros(){
+		// 	SortedMap<LocalDate, Integer> PxD = getPasajerosXDia();
+		// 	TreeMap<Integer, List<LocalDate>> PxDInv = new TreeMap<>();
+			
+		// 	for(LocalDate fecha : PxD.keySet()) {
+		// 		Integer np = PxD.get(fecha);
+		// 		if(!PxDInv.containsKey(np)) {
+		// 			PxDInv.put(np, new ArrayList<>());
+                   
+		// 		}
+        //         PxDInv.get(np).add(fecha);			
+                	 
+		// 	}
+		// 	Map.Entry<Integer, List<LocalDate>> map = PxDInv.lastEntry();
+		// 	return map;	  
+		//   }
+
+        public SortedMap<Integer, List<LocalDate>> getDiaMasPasajeros(){
             Map<LocalDate, Integer> nPXD = getPasajerosXDia();
             SortedMap<Integer, List<LocalDate>> nPXDInv = new TreeMap<>();
             for (LocalDate fecha : nPXD.keySet()){
                 if(!nPXDInv.containsKey(nPXD.get(fecha))){
                     nPXDInv.put(nPXD.get(fecha), new ArrayList<>());
-                    nPXDInv.get(nPXD.get(fecha)).add(fecha);
+                    
                 }
+                nPXDInv.get(nPXD.get(fecha)).add(fecha);
             }
-            pintaPXD(nPXD);
-            pintaPXDI(nPXDInv);
-            
-            System.out.println(nPXDInv.lastKey() + " " + nPXDInv.get(nPXDInv.lastKey()));
-            
+
+            SortedMap<Integer, List<LocalDate>> nPXDMAX = new TreeMap<>();
+            nPXDMAX.put(nPXDInv.lastKey(), nPXDInv.get(nPXDInv.lastKey()));
+            return nPXDMAX;
             
         }
 

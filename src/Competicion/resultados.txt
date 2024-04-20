@@ -1,0 +1,5 @@
+	Fue	Get	Leg	Par
+Fue	 *	 -	 -	 -
+Get	2-1	 *	1-0	 -
+Leg	0-1	 -	 *	0-0
+Par	3-0	 0-2	-	 *
